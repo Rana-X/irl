@@ -1,0 +1,27 @@
+# E2B Configuration for MCP SF Cleaning Service Testing
+
+# Use Node.js 20 template for modern JavaScript support
+template_id = "nodejs"
+
+# Set Node version
+node_version = "20"
+
+# Environment setup
+[env]
+NODE_ENV = "test"
+RESEND_API_KEY = "test_key"
+FROM_EMAIL = "test@example.com"
+PARTNER_EMAILS = "partner@example.com"
+
+# Install dependencies on sandbox start
+[setup]
+commands = [
+  "npm install",
+  "npm install -g jest"
+]
+
+# Resource limits
+[resources]
+cpu = 2
+memory_mb = 2048
+timeout_seconds = 300

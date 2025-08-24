@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRL Concierge - MCP Connector</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(45deg, #405DE6, #5B51D8, #833AB4, #C13584, #E1306C, #FD1D1D, #F56040, #F77737, #FCAF45, #FFDC80);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border-radius: 25px;
+            z-index: -1;
+            animation: rotate 3s linear infinite;
+        }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        .logo-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 36px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .title {
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            font-weight: 400;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .status-icon {
+            width: 12px;
+            height: 12px;
+            background: #4ade80;
+            border-radius: 50%;
+            margin-right: 12px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.3);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .status-text {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .service-card {
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: white;
+        }
+        
+        .service-card:hover {
+            border-color: #bc1888;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(188, 24, 136, 0.2);
+        }
+        
+        .service-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .service-title {
+            font-weight: 700;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .service-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .features {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .feature-tag {
+            padding: 5px 12px;
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border-radius: 20px;
+            font-size: 12px;
+            color: #764ba2;
+            font-weight: 600;
+        }
+        
+        .cta-button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            margin-top: 20px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #f0f0f0;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .footer a {
+            color: #bc1888;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Instagram-style stories dots */
+        .stories {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+        
+        .story-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+        
+        .story-dot.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 24px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-text">IRL</div>
+            </div>
+            <h1 class="title">IRL</h1>
+            <p class="subtitle">Cleaning Service</p>
+        </div>
+        
+        <div class="content">
+            <div class="status">
+                <div class="status-icon"></div>
+                <span class="status-text">Connected to Claude Desktop</span>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">🧹</div>
+                    <div class="service-title">Cleaning Service Booking</div>
+                </div>
+                <div class="service-description">
+                    Book professional cleaning services for San Francisco addresses directly through Claude.
+                </div>
+                <div class="features">
+                    <span class="feature-tag">📍 SF Only</span>
+                    <span class="feature-tag">⚡ Instant Booking</span>
+                    <span class="feature-tag">✉️ Email Confirmation</span>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <div class="service-icon">🤖</div>
+                    <div class="service-title">MCP Integration</div>
+                </div>
+                <div class="service-description">
+                    Seamlessly integrated with Claude Desktop using the Model Context Protocol.
+                </div>
+                <div class="features">
+                    <span class="feature-tag">🔒 Secure</span>
+                    <span class="feature-tag">🚀 Fast</span>
+                    <span class="feature-tag">☁️ Cloud Ready</span>
+                </div>
+            </div>
+            
+            <div class="stories">
+                <div class="story-dot active"></div>
+                <div class="story-dot"></div>
+                <div class="story-dot"></div>
+            </div>
+            
+            <button class="cta-button">Configure in Claude Desktop</button>
+        </div>
+        
+        <div class="footer">
+            <a href="#">IRL</a> • San Francisco
+        </div>
+    </div>
+    
+    <script>
+        // Animate story dots
+        let currentDot = 0;
+        const dots = document.querySelectorAll('.story-dot');
+        
+        setInterval(() => {
+            dots[currentDot].classList.remove('active');
+            currentDot = (currentDot + 1) % dots.length;
+            dots[currentDot].classList.add('active');
+        }, 3000);
+        
+        // Button click handler
+        document.querySelector('.cta-button').addEventListener('click', () => {
+            alert('Add this to Claude Desktop config:\n\n' +
+                  '{\n' +
+                  '  "mcpServers": {\n' +
+                  '    "irl-concierge": {\n' +
+                  '      "command": "node",\n' +
+                  '      "args": ["/path/to/mcp-sf-cleaning/index.js"]\n' +
+                  '    }\n' +
+                  '  }\n' +
+                  '}');
+        });
+    </script>
+</body>
+</html>

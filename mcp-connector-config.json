@@ -1,0 +1,52 @@
+{
+  "name": "IRL",
+  "description": "Cleaning Service",
+  "version": "1.0.0",
+  "author": "IRL",
+  "icon": "./assets/irl-logo.svg",
+  "branding": {
+    "primaryColor": "#BC3081",
+    "secondaryColor": "#4C63D2",
+    "accentColor": "#F47133",
+    "gradientStart": "#FED576",
+    "gradientEnd": "#4C63D2",
+    "fontFamily": "'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    "logoFont": "'Pacifico', cursive"
+  },
+  "ui": {
+    "theme": "instagram",
+    "style": "gradient",
+    "animations": true,
+    "roundedCorners": "20px"
+  },
+  "connector": {
+    "type": "mcp",
+    "protocol": "stdio",
+    "command": "node",
+    "args": ["./index.js"],
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "features": [
+    {
+      "id": "request_cleaning",
+      "name": "Book Cleaning",
+      "icon": "🧹",
+      "description": "Request professional cleaning service for SF addresses"
+    }
+  ],
+  "requirements": {
+    "node": ">=18.0.0",
+    "platform": ["darwin", "linux", "win32"]
+  },
+  "endpoints": {
+    "local": "stdio://localhost",
+    "remote": "https://irl-concierge.vercel.app/api/mcp"
+  },
+  "social": {
+    "instagram": "@irl",
+    "website": "https://irl.com",
+    "email": "gwen@irl-concierge.com"
+  }
+}
