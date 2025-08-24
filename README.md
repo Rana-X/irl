@@ -185,4 +185,4 @@ The server provides one tool:
 - **Simple API**: Clean, modern email API designed for developers
 - **No SMTP hassles**: No need for app passwords or complex SMTP settings
 - **Better deliverability**: Built-in SPF, DKIM, and DMARC support
-- **Free tier**: 3,000 emails/month free, perfect for small projects
+- **Free tier**: 3,000 emails/month free, perfect for small projectsTest auto-deployment
