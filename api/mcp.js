@@ -133,6 +133,20 @@ export default async function handler(req, res) {
 
   const { method, params } = req.body;
 
+  // Handle initialize request
+  if (method === 'initialize') {
+    return res.json({
+      protocolVersion: '0.1.0',
+      serverName: 'IRL',
+      serverVersion: '1.0.0',
+      metadata: {
+        icon: 'https://mcp-sf-cleaning-d6gm9wmi3-for-irl.vercel.app/irl-logo.svg',
+        displayName: 'IRL',
+        description: 'SF Concierge'
+      }
+    });
+  }
+
   // Handle list_tools request
   if (method === 'tools/list') {
     logRequest('tools/list', clientIp, null, true);
