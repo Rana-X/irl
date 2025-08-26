@@ -3,5 +3,25 @@
     "api/mcp.js": {
       "maxDuration": 10
     }
-  }
+  },
+  "rewrites": [
+    { "source": "/api/mcp", "destination": "/api/mcp.js" },
+    { "source": "/logo", "destination": "/irl-logo.svg" },
+    { "source": "/irl-logo.svg", "destination": "/public/irl-logo.svg" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.svg",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/svg+xml"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    }
+  ]
 }
