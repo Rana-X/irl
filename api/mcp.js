@@ -141,6 +141,11 @@ export default async function handler(req, res) {
       serverVersion: '1.0.0',
       capabilities: {
         tools: true
+      },
+      vendorInfo: {
+        name: 'IRL',
+        icon: 'https://mcp-sf-cleaning-ajoj4zu3f-for-irl.vercel.app/irl-logo.svg',
+        displayName: 'IRL'
       }
     });
   }
